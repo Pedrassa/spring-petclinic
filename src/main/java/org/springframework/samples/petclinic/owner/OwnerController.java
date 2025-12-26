@@ -104,7 +104,7 @@ class OwnerController {
 		Page<Owner> ownersResults = findPaginatedForOwnersLastName(page, lastName);
 		if (ownersResults.isEmpty()) {
 			// no owners found
-			result.rejectValue("lastName", "notFound", "not found");
+			result.rejectValue("lastName", "notFound", "not found - sobrenome nao encontrado");
 			return "owners/findOwners";
 		}
 
