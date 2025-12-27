@@ -1,14 +1,14 @@
-name: Java CI with Maven
+name: Java CI/CD with Maven
 
 on:
   push:
-    branches: [ "main_deactivated" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build-and-deliver:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to create Releases
 
     steps:
     - uses: actions/checkout@v4
@@ -20,6 +20,27 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    # This is the specific "Quality Gate" step
-    - name: Run Unit Tests
+    # 1. TEST (The Quality Gate from Sitzung 4)
+    - name: Run Tests
       run: ./mvnw test
+
+    # 2. PACKAGE (Create the JAR)
+    - name: Build Package (Artifact)
+      # We skip tests here because we just ran them above
+      run: ./mvnw package -DskipTests
+
+    # 3. UPLOAD (Save the JAR so we can download it later)
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: petclinic-app
+        path: target/*.jar
+
+    # 4. RELEASE (Simulates Delivery to a Repository)
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/') # Only runs if we push a tag (Optional logic)
+      with:
+        files: target/*.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
