@@ -2,7 +2,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main_deactivated" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -20,6 +20,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    # This is the specific "Quality Gate" step
-    - name: Run Unit Tests
-      run: ./mvnw test
+    # This is the Maven Verify step
+    - name: Maven Verify
+      run: ./mvnw verify
