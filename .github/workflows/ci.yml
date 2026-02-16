@@ -33,3 +33,10 @@ jobs:
         echo "version=${VERSION}" >> $GITHUB_OUTPUT
         echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
 
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.vars.outputs.artifact_name }}
+        path: target/*.jar
+        retention-days: 30
+
