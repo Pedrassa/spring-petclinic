@@ -25,6 +25,7 @@ jobs:
       run: ./mvnw verify
 
     - name: Extract version and prepare artifact name 
+      id: extract_step
       run: |
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         SHORT_SHA=$(git rev-parse --short HEAD)
@@ -36,7 +37,7 @@ jobs:
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ vars.artifact_name }}
+        name: ${{ steps.extract_step.outputs.artifact_name }}
         path: target/*.jar
         retention-days: 30
 
