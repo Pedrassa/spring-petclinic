@@ -41,3 +41,9 @@ jobs:
         path: target/*.jar
         retention-days: 30
 
+    - name: Upload build metadata
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-metadata
+        path: build-metadata.json
+        retention-days: 30
