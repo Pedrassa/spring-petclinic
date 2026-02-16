@@ -26,10 +26,10 @@ jobs:
 
     - name: Extract version and prepare artifact name 
       run: | 
-	      VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) 
-	      SHORT_SHA=$(git rev-parse --short HEAD) 
-	      ARTIFACT_NAME="petclinic-${VERSION}-${SHORT_SHA}.jar" 
-	      echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT 
-	      echo "version=${VERSION}" >> $GITHUB_OUTPUT 
-	      echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) 
+	      # SHORT_SHA=$(git rev-parse --short HEAD) 
+	      # ARTIFACT_NAME="petclinic-${VERSION}-${SHORT_SHA}.jar" 
+	    # echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT 
+	    # echo "version=${VERSION}" >> $GITHUB_OUTPUT 
+	    # echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
 
